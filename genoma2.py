@@ -13,14 +13,18 @@ def is_ok(word):
 
 def find_word_helper(actual_size, size, word):
     if (not is_ok(word)):
-        return 
+        return False
     elif (actual_size == size):
         print(word)
-        return
+        return True
     else:
-        find_word_helper(actual_size + 1, size, word + 'N')
-        find_word_helper(actual_size + 1, size, word + 'O')
-        find_word_helper(actual_size + 1, size, word + 'P')
+        if (find_word_helper(actual_size + 1, size, word + 'N')):
+            return True
+        if (find_word_helper(actual_size + 1, size, word + 'O')):
+            return True
+        if (find_word_helper(actual_size + 1, size, word + 'P')):
+            return True
+        return False
 
 
 def find_word(size):
