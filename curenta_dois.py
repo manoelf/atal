@@ -1,6 +1,3 @@
-from itertools import combinations
-
-
 def convert(num):
     num = int(num)
     new = bin(num)[2:]
@@ -23,23 +20,17 @@ def mapping_all(nums, indexs):
     return indexs
 
 
-def find_it(nums, k, start, got):
+def find_it(nums, k, start):
     indexs = dict()
     indexs = mapping_all(nums, indexs)
-    #print(indexs)
-    #print('k', k, 'start', start)
     for i in range(start, 32):
         if (indexs[i][0] ==  k):
             return AND(indexs[i][1])
         elif(indexs[i][0] > k):
-            return find_it(indexs[i][1], k, i + 1, True)
-        if (indexs[i][0] < k and i < 32):
-            continue
+            return find_it(indexs[i][1], k, i + 1)
         if (indexs[i][0] < k and i == 31):
             return AND(nums)
-    if (start >= 31):
-        return AND(nums[:k])
-    if (len(nums) > k):
+    if (len(nums) > k or start >= 31):
         return AND(nums[:k])
     return '0'
 
@@ -73,5 +64,5 @@ for i in range(tests):
     if (n < k):
         print(0)
     else:
-        sume = find_it(conj, k, 0, False) 
+        sume = find_it(conj, k, 0) 
         print(int(sume, 2)) 
